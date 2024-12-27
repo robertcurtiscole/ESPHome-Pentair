@@ -13,8 +13,6 @@ CONFIG_SCHEMA = binary_sensor.binary_sensor_schema(EmptyBinarySensor).extend(
     cv.COMPONENT_SCHEMA
 )
 
-
 async def to_code(config):
     var = await binary_sensor.new_binary_sensor(config)
     await cg.register_component(var, config)
-    
