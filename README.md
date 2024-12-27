@@ -1,1 +1,2 @@
-# ESPHome-Pentain
+# ESPHome-Pentair
+# HomeAssistant ESPHome external component
