@@ -1,4 +1,4 @@
-#include "esphome/core/log.h"
+// #include "esphome/core/log.h"
 #include "empty_pentair_component.h"
 
 namespace esphome {
