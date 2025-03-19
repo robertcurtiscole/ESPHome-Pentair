@@ -6,7 +6,7 @@
 namespace esphome {
 namespace empty_pentair_component {
 
-class empty_pentair_component : public binary_sensor::BinarySensor, public Component {
+class EmptyPentairComponent : public binary_sensor::BinarySensor, public Component {
  public:
   void setup() override;
   void update() override;
