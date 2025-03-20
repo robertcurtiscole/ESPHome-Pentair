@@ -1,5 +1,5 @@
 #include "esphome/core/log.h"
-#include "empty_pentair_component.h"
+#include "pentair_component.h"
 
 namespace esphome {
 namespace pentair_component {
