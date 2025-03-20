@@ -31,8 +31,8 @@ Pentair422_class = pentair422_ns.class_(
 CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
-            cv.Optional(CONF_SPA_ON): cv.boolean_,
-            cv.Optional(CONF_WATER_TEMP, default=50): cv.int_,
+            cv.Optional(CONF_SPA_ON): cv.entity_id,
+            cv.Optional(CONF_WATER_TEMP): cv.entity_id,
         })
         .extend(cv.COMPONENT_SCHEMA)
         .extend(uart.UART_DEVICE_SCHEMA)
