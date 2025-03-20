@@ -15,13 +15,13 @@ from esphome.const import CONF_ID
 
 DEPENDENCIES = ["uart"]
 
-empty_pentair_component_ns = cg.esphome_ns.namespace("empty_pentair_component")
-EmptyPentairComponent = empty_pentair_component_ns.class_(
-    "EmptyPentairComponent", cg.Component, uart.UARTDevice
+pentair422_ns = cg.esphome_ns.namespace("pentair_component")
+Pentair422_class = pentair422_ns.class_(
+    "PentairRS422", cg.Component, uart.UARTDevice
 )
 
 CONFIG_SCHEMA = (
-    cv.Schema({cv.GenerateID(): cv.declare_id(EmptyPentairComponent)})
+    cv.Schema({cv.GenerateID(): cv.declare_id(Pentair422_class)})
     .extend(cv.COMPONENT_SCHEMA)
     .extend(uart.UART_DEVICE_SCHEMA)
 )
