@@ -10,7 +10,7 @@ void EmptyPentairComponent::setup() {
     
 }
   
-void EmptyPentairComponent::update() {
+void EmptyPentairComponent::loop() {
 
 }
 

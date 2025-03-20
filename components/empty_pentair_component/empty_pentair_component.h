@@ -1,14 +1,15 @@
 #pragma once
 
 #include "esphome/core/component.h"
+#include "esphome/components/uart/uart.h"
 
 namespace esphome {
 namespace empty_pentair_component {
 
-class EmptyPentairComponent : public Component {
+class EmptyPentairComponent : public uart::UARTDevice, Component {
  public:
   void setup() override;
-  void update() override;
+  void loop() override;
   void dump_config() override;
 };
 
