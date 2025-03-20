@@ -11,9 +11,17 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import uart
-from esphome.const import CONF_ID
+from esphome.const import (
+    CONF_ID,
+)
 
 DEPENDENCIES = ["uart"]
+
+# Define constants for configuration keys
+CONF_SPA_ON     = "spa_on"
+CONF_SPA_BUTTON = "spa_button"
+CONF_AIR_TEMP   = "air_temp"
+CONF_WATER_TEMP = "water_temp"
 
 pentair422_ns = cg.esphome_ns.namespace("pentair_component")
 Pentair422_class = pentair422_ns.class_(
@@ -21,9 +29,13 @@ Pentair422_class = pentair422_ns.class_(
 )
 
 CONFIG_SCHEMA = (
-    cv.Schema({cv.GenerateID(): cv.declare_id(Pentair422_class)})
-    .extend(cv.COMPONENT_SCHEMA)
-    .extend(uart.UART_DEVICE_SCHEMA)
+    cv.Schema({
+            cv.GenerateID(): cv.declare_id(Pentair422_class),
+            cv.Optional(CONF_SPA_ON): cv.boolean_,
+            cv.Optional(CONF_WATER_TEMP, default=50): cv.int_,
+        })
+        .extend(cv.COMPONENT_SCHEMA)
+        .extend(uart.UART_DEVICE_SCHEMA)
 )
 
 async def to_code(config):
