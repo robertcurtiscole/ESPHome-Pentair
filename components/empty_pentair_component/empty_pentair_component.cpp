@@ -2,7 +2,7 @@
 #include "empty_pentair_component.h"
 
 namespace esphome {
-namespace EmptyPentairComponent {
+namespace empty_pentair_component {
 
 static const char *TAG = "empty_pentair_component.component";
 
