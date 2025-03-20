@@ -21,7 +21,7 @@ EmptyPentairComponent = empty_pentair_component_ns.class_(
 )
 
 CONFIG_SCHEMA = (
-    cv.Schema({cv.GenerateID(): cv.declare_id(EmptyUARTComponent)})
+    cv.Schema({cv.GenerateID(): cv.declare_id(EmptyPentairComponent)})
     .extend(cv.COMPONENT_SCHEMA)
     .extend(uart.UART_DEVICE_SCHEMA)
 )
