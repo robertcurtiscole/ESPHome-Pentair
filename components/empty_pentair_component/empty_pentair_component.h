@@ -6,7 +6,7 @@
 namespace esphome {
 namespace empty_pentair_component {
 
-class EmptyPentairComponent : public uart::UARTDevice, Component {
+class EmptyPentairComponent : public uart::UARTDevice, public Component {
  public:
   void setup() override;
   void loop() override;
