@@ -29,7 +29,9 @@ Pentair422_class = pentair422_ns.class_(
     "PentairRS422", cg.Component, uart.UARTDevice
 )
 
-CONFIG_SCHEMA = cv.Schema({
+CONFIG_SCHEMA = (
+    cv.Schema(
+    {
         cv.GenerateID(): cv.declare_id(Pentair422_class),
         cv.Optional(CONF_SPA_ON,
                     default={ CONF_NAME: "Spa On Sensor",}
@@ -44,10 +46,10 @@ CONFIG_SCHEMA = cv.Schema({
                 state_class=STATE_CLASS_MEASUREMENT,
                 device_class=DEVICE_CLASS_TEMPERATURE,
             ),
-    })
-    .extend(cv.COMPONENT_SCHEMA)
-    .extend(uart.UART_DEVICE_SCHEMA)
-
+    }
+    )   .extend(cv.COMPONENT_SCHEMA)
+        .extend(uart.UART_DEVICE_SCHEMA)
+)
 
 async def to_code(config):
     # await for required parameters
