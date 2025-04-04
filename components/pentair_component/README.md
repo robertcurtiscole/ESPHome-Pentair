@@ -2,6 +2,12 @@
 # incorrect:  please fix:
 # example configuration:
 
+# need empty components for dependencies:
+sensor:
+binary_sensor:
+button:
+
+# our component
 empty_pentair_component:
   id: empty_pentair_component_1
   spa_button:
@@ -11,7 +17,7 @@ empty_pentair_component:
   water_temp:
     name: "Water Temp"
   
-
+# needs a uart
 uart:
   tx_pin: D0
   rx_pin: D1
