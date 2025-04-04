@@ -20,7 +20,6 @@ DEPENDENCIES = ["uart"]
 # Define constants for configuration keys
 CONF_SPA_ON     = "spa_on"
 CONF_SPA_BUTTON = "spa_button"
-CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
 
 pentair422_ns = cg.esphome_ns.namespace("pentair_component")
@@ -32,13 +31,32 @@ CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
             cv.Optional(CONF_SPA_ON): cv.entity_id,
-            cv.Optional(CONF_WATER_TEMP): cv.entity_id,
+            # cv.Optional(CONF_SPA_BUTTON): cv.entity_id,
+            cv.Optional(CONF_WATER_TEMP,
+                        default={ CONF_NAME: "Water Temperature Sensor",}
+                ): sensor.sensor_schema(
+                    unit_of_measurement=UNIT_CELSIUS,
+                    icon=ICON_THERMOMETER,
+                    accuracy_decimals=1,
+                    state_class=STATE_CLASS_MEASUREMENT,
+                    device_class=DEVICE_CLASS_TEMPERATURE,
+                ),
         })
         .extend(cv.COMPONENT_SCHEMA)
         .extend(uart.UART_DEVICE_SCHEMA)
 )
 
 async def to_code(config):
+    # await for required parameters
+
+    # Declare the new component, register it as a component and a uart.
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await uart.register_uart_device(var, config)
+
+    # configure composition sensors and buttons in the new component
+    spa_on_sensor = await sensor.new_sensor(config.get(CONF_SPA_ON))
+    cg.add(var.set_spa_onset_spa_on_sensor(spa_on_sensor))
+    #cg.add(var.set_spa_button(config[CONF_SPA_BUTTON]))
+    temperature_sensor = await sensor.new_sensor(config.get(CONF_WATER_TEMP))
+    cg.add(var.set_water_temperature_sensor(temperature_sensor))
