@@ -29,24 +29,25 @@ Pentair422_class = pentair422_ns.class_(
     "PentairRS422", cg.Component, uart.UARTDevice
 )
 
-CONFIG_SCHEMA = (
-    cv.Schema({
-            cv.GenerateID(): cv.declare_id(Pentair422_class),
-            cv.Optional(CONF_SPA_ON): cv.entity_id,
-            # cv.Optional(CONF_SPA_BUTTON): cv.entity_id,
-            cv.Optional(CONF_WATER_TEMP,
-                        default={ CONF_NAME: "Water Temperature Sensor",}
-                ): sensor.sensor_schema(
-                    unit_of_measurement=UNIT_CELSIUS,
-                    icon=ICON_THERMOMETER,
-                    accuracy_decimals=1,
-                    state_class=STATE_CLASS_MEASUREMENT,
-                    device_class=DEVICE_CLASS_TEMPERATURE,
-                ),
-        })
-        .extend(cv.COMPONENT_SCHEMA)
-        .extend(uart.UART_DEVICE_SCHEMA)
-)
+CONFIG_SCHEMA = cv.Schema({
+        cv.GenerateID(): cv.declare_id(Pentair422_class),
+        cv.Optional(CONF_SPA_ON,
+                    default={ CONF_NAME: "Spa On Sensor",}
+            ): cv.entity_id,
+        # cv.Optional(CONF_SPA_BUTTON): cv.entity_id,
+        cv.Optional(CONF_WATER_TEMP,
+                    default={ CONF_NAME: "Water Temperature Sensor",}
+            ): sensor.sensor_schema(
+                unit_of_measurement=UNIT_CELSIUS,
+                icon=ICON_THERMOMETER,
+                accuracy_decimals=1,
+                state_class=STATE_CLASS_MEASUREMENT,
+                device_class=DEVICE_CLASS_TEMPERATURE,
+            ),
+    })
+    .extend(cv.COMPONENT_SCHEMA)
+    .extend(uart.UART_DEVICE_SCHEMA)
+
 
 async def to_code(config):
     # await for required parameters
