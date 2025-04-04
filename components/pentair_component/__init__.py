@@ -11,6 +11,8 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import uart
+from esphome.components import sensor
+from esphome.components import binary_sensor
 from esphome.const import (
     CONF_ID, CONF_NAME, UNIT_CELSIUS, DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, ICON_THERMOMETER
 )
