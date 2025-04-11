@@ -37,6 +37,9 @@ CONFIG_SCHEMA = (
         #            default={ CONF_NAME: "Spa On Sensor",}
         #    ): cv.entity_id,
         # cv.Optional(CONF_SPA_BUTTON): cv.entity_id,
+        cv.Optional(CONF_SPA_ON,
+                default={ CONF_NAME: "Spa On Sensor",}
+            ): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_WATER_TEMP,
                     default={ CONF_NAME: "Water Temperature Sensor",}
             ): sensor.sensor_schema(
@@ -60,8 +63,8 @@ async def to_code(config):
     await uart.register_uart_device(var, config)
 
     # configure composition sensors and buttons in the new component
-    #  spa_on_sensor = await sensor.new_sensor(config.get(CONF_SPA_ON))
-    #  cg.add(var.set_spa_onset_spa_on_sensor(spa_on_sensor))
+    spa_on_sensor = await sensor.new_sensor(config.get(CONF_SPA_ON))
+    cg.add(var.set_spa_onset_spa_on_sensor(spa_on_sensor))
     #  cg.add(var.set_spa_button(config[CONF_SPA_BUTTON]))
     temperature_sensor = await sensor.new_sensor(config.get(CONF_WATER_TEMP))
     cg.add(var.set_water_temperature_sensor(temperature_sensor))
