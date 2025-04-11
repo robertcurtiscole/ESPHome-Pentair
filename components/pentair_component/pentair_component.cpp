@@ -28,9 +28,9 @@ void PentairRS422::loop() {
 
 void PentairRS422::dump_config() {
     ESP_LOGCONFIG(TAG, "Custom Pentair component:");
-    LOG_SENSOR("  ", "Spa On", this->spa_on_sensor_);
-    LOG_BUTTON("  ", "Spa Button", this->spa_button_);
-    LOG_SENSOR("  ", "Water Temperature", this->water_temperature_sensor_);
+    //LOG_SENSOR("  ", "Spa On", this->spa_on_sensor_);
+    //LOG_BUTTON("  ", "Spa Button", this->spa_button_);
+    //LOG_SENSOR("  ", "Water Temperature", this->water_temperature_sensor_);
 }
 
 
