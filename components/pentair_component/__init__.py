@@ -15,7 +15,7 @@ from esphome.components import sensor
 from esphome.components import button
 from esphome.components import binary_sensor
 from esphome.const import (
-    CONF_ID, CONF_NAME, UNIT_CELSIUS, DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, ICON_THERMOMETER
+    CONF_ID, CONF_NAME, UNIT_CELSIUS, DEVICE_CLASS_EMPTY, DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, ICON_THERMOMETER
 )
 
 DEPENDENCIES = ["uart"]
@@ -43,7 +43,9 @@ CONFIG_SCHEMA = (
             ): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_SPA_BUTTON,
                 default={ CONF_NAME: "Spa Toggle Button",}
-            ): button.button_schema(),
+            ): button.button_schema(
+                device_class=DEVICE_CLASS_EMPTY,
+            ),
         cv.Optional(CONF_WATER_TEMP,
                     default={ CONF_NAME: "Water Temperature Sensor",}
             ): sensor.sensor_schema(
