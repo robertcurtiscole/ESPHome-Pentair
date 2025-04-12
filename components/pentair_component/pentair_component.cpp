@@ -20,10 +20,20 @@ void PentairRS422::loop() {
     this->water_temperature_sensor_->publish_state(random_float() * 50);
     // junk debug
     if (++loop_count_ == 50) {
-        if (this->pool_on_sensor_) {
-            this->pool_on_sensor_->publish_state(true);
+        if (this->spa_on_sensor_) {
+            this->spa_on_sensor_->publish_state(true);
         }
     }
+
+    // This will be called by App.loop()
+    boolean got_char = false;
+    char msgbuffer[40];
+    while (available()) {
+        loop_chars++;     // count loops with char
+        got_char = true;
+        int c = read();
+    }
+    
 }
 
 void PentairRS422::dump_config() {

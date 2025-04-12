@@ -12,6 +12,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import uart
 from esphome.components import sensor
+from esphome.components import button
 from esphome.components import binary_sensor
 from esphome.const import (
     CONF_ID, CONF_NAME, UNIT_CELSIUS, DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, ICON_THERMOMETER
@@ -40,6 +41,9 @@ CONFIG_SCHEMA = (
         cv.Optional(CONF_SPA_ON,
                 default={ CONF_NAME: "Spa On Sensor",}
             ): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_SPA_BUTTON,
+                default={ CONF_NAME: "Spa Toggle Button",}
+            ): button.button_schema(),
         cv.Optional(CONF_WATER_TEMP,
                     default={ CONF_NAME: "Water Temperature Sensor",}
             ): sensor.sensor_schema(
@@ -65,6 +69,7 @@ async def to_code(config):
     # configure composition sensors and buttons in the new component
     spa_on_sensor = await binary_sensor.new_binary_sensor(config.get(CONF_SPA_ON))
     cg.add(var.set_spa_on_sensor(spa_on_sensor))
-    #  cg.add(var.set_spa_button(config[CONF_SPA_BUTTON]))
+    spa_button = await button.new_button(config.get(CONF_SPA_ON))
+    cg.add(var.set_spa_button(spa_button)
     temperature_sensor = await sensor.new_sensor(config.get(CONF_WATER_TEMP))
     cg.add(var.set_water_temperature_sensor(temperature_sensor))

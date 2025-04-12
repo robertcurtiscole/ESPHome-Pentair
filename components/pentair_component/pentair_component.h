@@ -27,6 +27,26 @@ class PentairRS422 : public uart::UARTDevice, public Component {
 
   int   loop_count_{0};
 
+  // private:
+  uint nchars = 0;
+  uint msglen = 0;
+  // read data into buffer, process
+  uint loop_chars = 0;
+  uint loop_nochars = 0;
+  u_char buffer[255];
+  // const char *starthead = "1234";    // "00 FF A5 01"
+  uint8 starthead[4] = { 0x00, 0xFF, 0xA5, 0x01};
+  bool curSpaHeater = false;
+  bool curSpaLight = false;
+  bool curPoolLight = false;
+  bool curPoolFiber = false;
+  bool curSpaJets = false;
+  bool cmdSpaHeater = false;
+  bool cmdSpaLight = false;
+  bool cmdPoolLight = false;
+  bool cmdPoolFiber = false;
+  bool cmdSpaJets = false;
+
  public:
   void setup() override;
 
