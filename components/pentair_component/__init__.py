@@ -76,7 +76,9 @@ async def to_code(config):
     # configure composition sensors and buttons in the new component
     spa_on_sensor = await binary_sensor.new_binary_sensor(config.get(CONF_SPA_ON))
     cg.add(var.set_spa_on_sensor(spa_on_sensor))
-    spa_button = await button.new_button(config.get(CONF_SPA_ON))
+
+    spa_button = await button.new_button(config.get(CONF_SPA_BUTTON))
     cg.add(var.set_spa_button(spa_button))
+    
     temperature_sensor = await sensor.new_sensor(config.get(CONF_WATER_TEMP))
     cg.add(var.set_water_temperature_sensor(temperature_sensor))
