@@ -31,7 +31,7 @@ Pentair422_class = pentair422_ns.class_(
 )
 
 # class for button
-press_toggle_button_ns = cg.esphome_ns.namespace("PressToggleButton")
+press_toggle_button_ns = cg.esphome_ns.namespace("button")
 ToggleButton = press_toggle_button_ns.class_("ToggleButton", button.Button, cg.Component)
 
 CONFIG_SCHEMA = (
@@ -79,6 +79,6 @@ async def to_code(config):
 
     spa_button = await button.new_button(config.get(CONF_SPA_BUTTON))
     cg.add(var.set_spa_button(spa_button))
-    
+
     temperature_sensor = await sensor.new_sensor(config.get(CONF_WATER_TEMP))
     cg.add(var.set_water_temperature_sensor(temperature_sensor))
