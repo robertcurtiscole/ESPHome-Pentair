@@ -10,18 +10,19 @@
 
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import uart
-from esphome.const import (
-    CONF_ID,
-)
+from esphome.components import uart, sensor, switch
+from esphome.const import (     CONF_ID, UNIT_EMPTY, ICON_EMPTY)
 
 DEPENDENCIES = ["uart"]
 
 # Define constants for configuration keys
 CONF_SPA_ON     = "spa_on"
-CONF_SPA_BUTTON = "spa_button"
+CONF_AUX1       = "aux1"
+CONF_AUX2       = "aux2"
+CONF_AUX3       = "aux3"
 CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
+CONF_SPA_TEMP   = "spa_temp"
 
 pentair422_ns = cg.esphome_ns.namespace("pentair_component")
 Pentair422_class = pentair422_ns.class_(
@@ -33,6 +34,12 @@ CONFIG_SCHEMA = (
             cv.GenerateID(): cv.declare_id(Pentair422_class),
             cv.Optional(CONF_SPA_ON): cv.entity_id,
             cv.Optional(CONF_WATER_TEMP): cv.entity_id,
+            cv.Optional(CONF_AIR_TEMP): sensor.sensor_schema(
+                Pentair422_class,
+                unit_of_measurement=UNIT_EMPTY,
+                icon=ICON_EMPTY,
+                accuracy_decimals=1,
+            ).extend(),
         })
         .extend(cv.COMPONENT_SCHEMA)
         .extend(uart.UART_DEVICE_SCHEMA)
@@ -42,3 +49,7 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await uart.register_uart_device(var, config)
+
+    if CONF_AIR_TEMP in config:
+        sensor = await sensor.new_sensor(config[CONF_AIR_TEMP])
+        #cg.add(var.set_air_temp(sensor))
