@@ -53,5 +53,5 @@ async def to_code(config):
     await uart.register_uart_device(var, config)
 
     if CONF_AIR_TEMP in config:
-        sensor = await sensor.new_sensor(config[CONF_AIR_TEMP])
-        #cg.add(var.set_air_temp(sensor))
+        sensor_ = await sensor.new_sensor(config[CONF_AIR_TEMP])
+        #cg.add(var.set_air_temp(sensor_))
