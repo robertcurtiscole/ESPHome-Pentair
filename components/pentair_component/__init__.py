@@ -33,12 +33,12 @@ CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
             cv.Optional(CONF_SPA_ON): cv.entity_id,
-            cv.Optional(CONF_WATER_TEMP): cv.entity_id,
-            cv.Optional(CONF_AIR_TEMP): sensor.sensor_schema(
-                Pentair422_class,
-                unit_of_measurement=UNIT_EMPTY,
-                icon=ICON_EMPTY,
-                accuracy_decimals=1,
+            #cv.Optional(CONF_WATER_TEMP): cv.entity_id,
+            #cv.Optional(CONF_AIR_TEMP): sensor.sensor_schema(
+            #    Pentair422_class,
+            #    unit_of_measurement=UNIT_EMPTY,
+            #    icon=ICON_EMPTY,
+            #    accuracy_decimals=1,
             ).extend(),
         })
         .extend(cv.COMPONENT_SCHEMA)
