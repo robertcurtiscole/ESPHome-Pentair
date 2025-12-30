@@ -39,8 +39,10 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_AIR_TEMP): sensor.sensor_schema(
             #   Pentair422_class,
                 unit_of_measurement=UNIT_EMPTY,
-                icon=ICON_EMPTY,
+                icon=ICON_THERMOMETER,
                 accuracy_decimals=1,
+                state_class=STATE_CLASS_MEASUREMENT,
+                device_class=DEVICE_CLASS_TEMPERATURE,
             ).extend(),
         })
         .extend(cv.COMPONENT_SCHEMA)
