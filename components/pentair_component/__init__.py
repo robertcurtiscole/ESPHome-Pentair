@@ -16,6 +16,7 @@ from esphome.const import (     CONF_ID, UNIT_EMPTY, ICON_EMPTY,
                            )
 
 DEPENDENCIES = ["uart"]
+AUTO_LOAD = ['uart', 'sensor', 'switch']
 
 # Define constants for configuration keys
 CONF_SPA_ON     = "spa_on"
@@ -38,7 +39,7 @@ CONFIG_SCHEMA = (
                 Pentair422_class,
             ).extend(),
             #cv.Optional(CONF_WATER_TEMP): cv.entity_id,
-            cv.Optional(CONF_AIR_TEMP): sensor.sensor_schema(
+            cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
             #   Pentair422_class,
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
@@ -58,4 +59,4 @@ async def to_code(config):
 
     if CONF_AIR_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_AIR_TEMP])
-        #cg.add(var.set_air_temp(sensor_))
+        #cg.add(var.set_air_temp_sensor(sensor_))
