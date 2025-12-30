@@ -39,7 +39,7 @@ CONFIG_SCHEMA = (
             #    unit_of_measurement=UNIT_EMPTY,
             #    icon=ICON_EMPTY,
             #    accuracy_decimals=1,
-            ).extend(),
+            #).extend(),
         })
         .extend(cv.COMPONENT_SCHEMA)
         .extend(uart.UART_DEVICE_SCHEMA)
