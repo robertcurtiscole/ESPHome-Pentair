@@ -13,6 +13,31 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void setup() override;
   void loop() override;
   void dump_config() override;
+
+  // Set sensors
+  void set_air_temp_sensor(sensor::Sensor *air_temp_sensor) { air_temp_sensor_ = air_temp_sensor; }
+  void set_water_temp_sensor(sensor::Sensor *water_temp_sensor) { water_temp_sensor_ = water_temp_sensor; }
+  void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
+
+  // protected variables
+ protected:
+  sensor::Sensor *air_temp_sensor_{nullptr};
+  sensor::Sensor *water_temp_sensor_{nullptr};
+  sensor::Sensor *spa_temp_sensor_{nullptr};
+
+  // private for communications
+ private:
+  int   loop_count_{0};   // for testing and debug
+
+  uint nchars = 0;
+  uint msglen = 0;
+  // read data into buffer, process
+  uint loop_chars = 0;
+  uint loop_nochars = 0;
+  u_char buffer[255];
+  // const char *starthead = "1234";    // "00 FF A5 01"
+  uint8 starthead[4] = { 0x00, 0xFF, 0xA5, 0x01};
+
 };
 
 } //namespace pentair_component

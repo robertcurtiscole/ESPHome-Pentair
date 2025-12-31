@@ -13,6 +13,7 @@ import esphome.config_validation as cv
 from esphome.components import uart, sensor, switch
 from esphome.const import (     CONF_ID, CONF_NAME,UNIT_EMPTY, ICON_EMPTY,
                            DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, UNIT_CELSIUS, ICON_THERMOMETER,
+                device_class=DEVICE_CLASS_SWITCH,
                            )
 
 DEPENDENCIES = ["uart"]
@@ -23,6 +24,12 @@ CONF_SPA_ON     = "spa_on"
 CONF_AUX1       = "aux1"
 CONF_AUX2       = "aux2"
 CONF_AUX3       = "aux3"
+CONF_POOL_ON    = "pool_on"
+CONF_FEATURE1   = "feature1"
+CONF_FEATURE2   = "feature2"
+CONF_FEATURE3   = "feature3"
+CONF_FEATURE4   = "feature4"
+CONF_BOOST      = "boost"
 CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
 CONF_SPA_TEMP   = "spa_temp"
@@ -35,11 +42,26 @@ Pentair422_class = pentair422_ns.class_(
 CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
-            cv.Optional(CONF_SPA_ON): switch.switch_schema(
-                Pentair422_class,
+            cv.Optional(CONF_SPA_ON,default={ CONF_NAME: "Spa Switch" }): switch.switch_schema(
+                device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            #cv.Optional(CONF_WATER_TEMP): cv.entity_id,
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
+            #   Pentair422_class,
+                unit_of_measurement=UNIT_EMPTY,
+                icon=ICON_THERMOMETER,
+                accuracy_decimals=1,
+                state_class=STATE_CLASS_MEASUREMENT,
+                device_class=DEVICE_CLASS_TEMPERATURE,
+            ).extend(),
+            cv.Optional(CONF_WATER_TEMP,default={ CONF_NAME: "Pool Temp" }): sensor.sensor_schema(
+            #   Pentair422_class,
+                unit_of_measurement=UNIT_EMPTY,
+                icon=ICON_THERMOMETER,
+                accuracy_decimals=1,
+                state_class=STATE_CLASS_MEASUREMENT,
+                device_class=DEVICE_CLASS_TEMPERATURE,
+            ).extend(),
+            cv.Optional(CONF_SPA_TEMP,default={ CONF_NAME: "Spa Temp" }): sensor.sensor_schema(
             #   Pentair422_class,
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
@@ -59,4 +81,4 @@ async def to_code(config):
 
     if CONF_AIR_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_AIR_TEMP])
-        #cg.add(var.set_air_temp_sensor(sensor_))
+        cg.add(var.set_air_temp_sensor(sensor_))
