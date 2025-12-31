@@ -81,6 +81,16 @@ async def to_code(config):
     await cg.register_component(var, config)
     await uart.register_uart_device(var, config)
 
+    if CONF_SPA_ON in config:
+        switch_ = await switch.new_switch(config[CONF_SPA_ON])
+        cg.add(var.set_spa_on_switch(switch_))
+
     if CONF_AIR_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_AIR_TEMP])
         cg.add(var.set_air_temp_sensor(sensor_))
+    if CONF_WATER_TEMP in config:
+        sensor_ = await sensor.new_sensor(config[CONF_WATER_TEMP])
+        cg.add(var.set_water_temp_sensor(sensor_))
+    if CONF_SPA_TEMP in config:
+        sensor_ = await sensor.new_sensor(config[CONF_SPA_TEMP])
+        cg.add(var.set_spa_temp_sensor(sensor_))
