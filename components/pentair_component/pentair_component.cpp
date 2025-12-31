@@ -24,7 +24,7 @@ void PentairRS422::loop() {
             this->water_temp_sensor_->publish_state(random_float() * 50);
         }
        if (this->spa_on_switch_) {
-            this->spa_on_switch_->publish_state(random_int()%2);
+            this->spa_on_switch_->publish_state(random_int32()%2);
         }
     }
 
