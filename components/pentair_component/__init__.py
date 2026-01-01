@@ -44,7 +44,6 @@ CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
             cv.Optional(CONF_SPA_ON,default={ CONF_NAME: "Spa Switch" }): switch.switch_schema(
-               Pentair422_class,        # skip switch_class which failed.
                device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
