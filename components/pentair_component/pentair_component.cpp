@@ -18,16 +18,8 @@ void PentairRS422::setup() {
 }
   
 void PentairRS422::loop() {
-     // junk debug
-    if ((++loop_count_ %300) == 0) {
-        if (this->water_temp_sensor_) {
-            this->water_temp_sensor_->publish_state(random_float() * 50);
-        }
-       if (this->spa_on_switch_) {
-            this->spa_on_switch_->publish_state(random_uint32()%2);
-        }
-    }
-
+    bool switch_state;
+    
     // This will be called by App.loop()
     boolean got_char = false;
     char msgbuffer[40];
@@ -58,30 +50,22 @@ void PentairRS422::loop() {
                 if (buffer[4] == 0x0F && buffer[5] == 0x10 && buffer[6] == 0x02) {
 
                     // spa on?
-                    /*****
-                    curSpaHeater = (bool) (buffer[8+2] & 0x01);
-                    if (curSpaHeater != cmdSpaHeater) {
-                        if (curSpaHeater != (bool)( id(spaheater).state)) {
-                            id(spaheater).toggle();      // set switch to current state
-                        }
+                    switch_state = (bool) (buffer[8+2] & 0x01);
+                    if (this->spa_on_switch_) {
+                        this->spa_on_switch_->publish_state(switch_state);
                     }
-                    *****/
     
                     // spa and pool temperatures +14, +15
                     if (this->water_temp_sensor_) {
-                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+14]);
                         this->water_temp_sensor_->publish_state(1.0 * (int) buffer[8+14]);
                     }
                     if (this->spa_temp_sensor_) {
-                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+15]);
                         this->spa_temp_sensor_->publish_state(1.0 * (int) buffer[8+15]);
                     }
                     if (this->air_temp_sensor_) {
-                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+18]);
                         this->air_temp_sensor_->publish_state((int) buffer[8+18]);
                     }
                     if (this->solar_temp_sensor_) {
-                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+19]);
                         this->solar_temp_sensor_->publish_state(1.0 * (int) buffer[8+19]);
                     }
 
