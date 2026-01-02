@@ -69,20 +69,20 @@ void PentairRS422::loop() {
     
                     // spa and pool temperatures +14, +15
                     if (this->water_temp_sensor_) {
-                        sprintf(msgbuffer, "%d°F ", (int) buffer[8+14]);
-                        this->water_temp_sensor_->publish_state(msgbuffer);
+                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+14]);
+                        this->water_temp_sensor_->publish_state(1.0 * (int) buffer[8+14]);
                     }
                     if (this->spa_temp_sensor_) {
-                        sprintf(msgbuffer, "%d°F ", (int) buffer[8+15]);
-                        this->spa_temp_sensor_->publish_state(msgbuffer);
+                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+15]);
+                        this->spa_temp_sensor_->publish_state(1.0 * (int) buffer[8+15]);
                     }
                     if (this->air_temp_sensor_) {
-                        sprintf(msgbuffer, "%d°F ", (int) buffer[8+18]);
-                        this->air_temp_sensor_->publish_state(msgbuffer);
+                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+18]);
+                        this->air_temp_sensor_->publish_state((int) buffer[8+18]);
                     }
                     if (this->solar_temp_sensor_) {
-                        sprintf(msgbuffer, "%d°F ", (int) buffer[8+18]);
-                        this->solar_temp_sensor_->publish_state(msgbuffer);
+                        //sprintf(msgbuffer, "%d°F ", (int) buffer[8+19]);
+                        this->solar_temp_sensor_->publish_state(1.0 * (int) buffer[8+19]);
                     }
 
                     // debug strings
@@ -139,7 +139,7 @@ void PentairRS422::loop() {
 * 0x00 0xFF 0xA5 0x01   0x48 0x10   0x01  0x01 0x86        0x01 0x88 (or some checksum)
 * The message needs a prelude of some # of 0xFF before the header.  Try 8 and send bytes quickly...
 */
-void PentairRS422::sendCircuitChange(char circuit, bool state){
+void PentairRS422::sendCircuitChange(char circuit, bool state)  {
     u_char out_message[12] = { 0x00, 0xFF, 0xA5, 0x01, 0x10, 0x20, 0x86, 0x02,
                             0x00, 0x00, 0x00, 0x00};   // set these: data and checksum
     u_char prelude[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
@@ -200,6 +200,7 @@ void PentairRS422::addchar(char c) {
     // check overflow
     if (nchars > 200) {
         resetBuffer();
+    }
 }
 
 void PentairRS422::dump_config() {
