@@ -48,7 +48,6 @@ CONFIG_SCHEMA = (
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
-            #   Pentair422_class,
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
                 accuracy_decimals=1,
@@ -56,7 +55,6 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_TEMPERATURE,
             ).extend(),
             cv.Optional(CONF_WATER_TEMP,default={ CONF_NAME: "Pool Temp" }): sensor.sensor_schema(
-            #   Pentair422_class,
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
                 accuracy_decimals=1,
@@ -64,7 +62,6 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_TEMPERATURE,
             ).extend(),
             cv.Optional(CONF_SPA_TEMP,default={ CONF_NAME: "Spa Temp" }): sensor.sensor_schema(
-            #   Pentair422_class,
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
                 accuracy_decimals=1,
