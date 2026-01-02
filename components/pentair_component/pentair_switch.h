@@ -12,10 +12,10 @@ class PentairSwitch : public switch_::Switch, public Component {
   void setup() override;
   void write_state(bool state) override;
   void dump_config() override;
-  void set_parent(PentairRS422 *parent) { parent_ = parent; }
+  void set_parent(pentair_component::PentairRS422 *parent) { parent_ = parent; }
 
  protected:
-  PentairRS422 *parent_{nullptr};
+  pentair_component::PentairRS422 *parent_{nullptr};
 
 };
 

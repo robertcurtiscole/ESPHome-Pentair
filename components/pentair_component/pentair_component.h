@@ -23,7 +23,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
 
   // protected variables
  protected:
-  switch_ *spa_on_switch_{nullptr};
+  switch_::Switch *spa_on_switch_{nullptr};
 
   sensor::Sensor *air_temp_sensor_{nullptr};
   sensor::Sensor *water_temp_sensor_{nullptr};
