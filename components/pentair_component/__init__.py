@@ -38,8 +38,7 @@ pentair422_ns = cg.esphome_ns.namespace("pentair_component")
 Pentair422_class = pentair422_ns.class_(
     "PentairRS422", cg.Component, uart.UARTDevice
 )
-pentair_switch_ns = cg.esphome_ns.namespace("pentair_switch")
-pentair_switch_class = pentair_switch_ns.class_("PentairSwitch", switch.Switch, cg.Component)
+pentair_switch_class = pentair422_ns.class_("PentairSwitch", switch.Switch, cg.Component)
 
 CONFIG_SCHEMA = (
     cv.Schema({
