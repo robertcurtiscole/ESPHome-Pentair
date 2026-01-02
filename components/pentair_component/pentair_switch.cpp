@@ -13,16 +13,13 @@ void PentairSwitch::setup() {
 
 void PentairSwitch::write_state(bool nstate) {
   ESP_LOGI(TAG, "PentairSwitch::write_state(%s) called.", nstate ? "ON" : "OFF");
-  if (this->state != nstate) {
-    if (nstate)
-      this->turn_on();
-    else
-      this->turn_off();
-  }
   // talk to the PentairComponent to set the switch
   if (parent_ != nullptr) {
     // parent_->set_switch_state(this, state);
   }
+
+ // confirm this was successful?
+  this->publish_state(nstate);
 }
 
 void PentairSwitch::dump_config(){
