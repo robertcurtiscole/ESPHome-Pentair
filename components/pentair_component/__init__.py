@@ -39,13 +39,13 @@ Pentair422_class = pentair422_ns.class_(
     "PentairRS422", cg.Component, uart.UARTDevice
 )
 pentair_switch_ns = cg.esphome_ns.namespace("pentair_switch")
-pentair_switch_classs = pentair_switch_ns.class_("PentairSwitch", switch.Switch, cg.Component)
+pentair_switch_class = pentair_switch_ns.class_("PentairSwitch", switch.Switch, cg.Component)
 
 CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
             cv.Optional(CONF_SPA_ON,default={ CONF_NAME: "Spa Switch" }): switch.switch_schema(
-               pentair_switch_classs, device_class=DEVICE_CLASS_SWITCH,
+               pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
             #   Pentair422_class,
@@ -84,6 +84,7 @@ async def to_code(config):
     if CONF_SPA_ON in config:
         switch_ = await switch.new_switch(config[CONF_SPA_ON])
         cg.add(var.set_spa_on_switch(switch_))
+        cg.add(switch_.set_parent(var))
 
     if CONF_AIR_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_AIR_TEMP])
