@@ -11,10 +11,10 @@ void PentairSwitch::setup() {
 
 }
 
-void PentairSwitch::write_state(bool state) {
-  ESP_LOGI(TAG, "PentairSwitch::write_state(%s) called.", state ? "ON" : "OFF");
-  if (this->state != this->is_on()) {
-    if (this->state)
+void PentairSwitch::write_state(bool nstate) {
+  ESP_LOGI(TAG, "PentairSwitch::write_state(%s) called.", nstate ? "ON" : "OFF");
+  if (this->state != nstate) {
+    if (nstate)
       this->turn_on();
     else
       this->turn_off();
