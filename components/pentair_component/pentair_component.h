@@ -15,7 +15,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void dump_config() override;
 
   // Set switches and sensors
-  void set_spa_on_switch(PentairSwitch:Switch *spa_on_switch) { spa_on_switch_ = spa_on_switch; }
+  void set_spa_on_switch(switch_:Switch *spa_on_switch) { spa_on_switch_ = spa_on_switch; }
   void set_air_temp_sensor(sensor::Sensor *air_temp_sensor) { air_temp_sensor_ = air_temp_sensor; }
   void set_water_temp_sensor(sensor::Sensor *water_temp_sensor) { water_temp_sensor_ = water_temp_sensor; }
   void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
@@ -23,8 +23,8 @@ class PentairRS422 : public uart::UARTDevice, public Component {
 
   // protected variables
  protected:
-  PentairSwitch *spa_on_switch_{nullptr};
-  
+  switch_ *spa_on_switch_{nullptr};
+
   sensor::Sensor *air_temp_sensor_{nullptr};
   sensor::Sensor *water_temp_sensor_{nullptr};
   sensor::Sensor *spa_temp_sensor_{nullptr};
