@@ -19,6 +19,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_air_temp_sensor(sensor::Sensor *air_temp_sensor) { air_temp_sensor_ = air_temp_sensor; }
   void set_water_temp_sensor(sensor::Sensor *water_temp_sensor) { water_temp_sensor_ = water_temp_sensor; }
   void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
+  void set_solar_temp_sensor(sensor::Sensor *solar_temp_sensor) { solar_temp_sensor_ = solar_temp_sensor; }
 
   // protected variables
  protected:
@@ -26,9 +27,16 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   sensor::Sensor *air_temp_sensor_{nullptr};
   sensor::Sensor *water_temp_sensor_{nullptr};
   sensor::Sensor *spa_temp_sensor_{nullptr};
+  sensor::Sensor *solar_temp_sensor_{nullptr};
 
   // private for communications
  private:
+  uint16 computeChecksum(u_char *buff);
+  boolean checksumPass(u_char *buff, int numchars);
+  void addchar(char c);
+  void resetBuffer();
+  void sendCircuitChange(char circuit, bool state);
+
   int   loop_count_{0};   // for testing and debug
 
   uint nchars = 0;
