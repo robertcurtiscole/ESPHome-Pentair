@@ -3,7 +3,7 @@
 #include "pentair_component.h"
 
 namespace esphome {
-namespace pentair_switch {
+namespace pentair_component {
 
 static const char *TAG = "pentair_switch.switch";
 
@@ -23,5 +23,5 @@ void PentairSwitch::dump_config(){
     ESP_LOGCONFIG(TAG, "Pentair switch");
 }
 
-} //namespace pentair_switch
+} //namespace pentair_component
 } //namespace esphome

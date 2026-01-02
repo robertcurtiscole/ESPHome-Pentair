@@ -5,7 +5,7 @@
 #include "pentair_component.h"
 
 namespace esphome {
-namespace pentair_switch {
+namespace pentair_component {
 
 class PentairSwitch : public switch_::Switch, public Component {
  public:
@@ -19,5 +19,5 @@ class PentairSwitch : public switch_::Switch, public Component {
 
 };
 
-} //namespace pentair_switch
+} //namespace pentair_component
 } //namespace esphome
