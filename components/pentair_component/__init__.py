@@ -36,15 +36,16 @@ CONF_SPA_TEMP   = "spa_temp"
 
 # Define codes for switch commands
 # This is not byte [2] of status message! Rather, it is one of
-# these codes: 0x01 represents the SPA, 0x02 is AUX1, 0x03 is AUX2, 0x04 is AUX3, and 0x06 is FEATURE1, 0x05 is POOL,
+# these codes: 0x01 represents the SPA, 0x02 is AUX1, 0x03 is AUX2, 0x04 is AUX3,
+# and 0x05 is FEATURE1, 0x06 is POOL,  (out of order)
 # 0x07 is FEATURE2, 0x08 is FEATURE3, 0x09 is FEATURE4, 0x85 is HEAT_BOOST.
 
 CIRCUIT_SPA_ON     = 0x01
 CIRCUIT_AUX1       = 0x02
 CIRCUIT_AUX2       = 0x03
 CIRCUIT_AUX3       = 0x04
-CIRCUIT_POOL_ON    = 0x05
-CIRCUIT_FEATURE1   = 0x06
+CIRCUIT_POOL_ON    = 0x06
+CIRCUIT_FEATURE1   = 0x05
 CIRCUIT_FEATURE2   = 0x07
 CIRCUIT_FEATURE3   = 0x08
 CIRCUIT_FEATURE4   = 0x09
@@ -60,31 +61,31 @@ CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
 
-            cv.Optional(CONF_SPA_ON,default={ CONF_NAME: "Spa Switch" }): switch.switch_schema(
+            cv.Optional(CONF_SPA_ON): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_AUX1,default={ CONF_NAME: "Aux1 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_AUX1): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_AUX2,default={ CONF_NAME: "Aux2 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_AUX2): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_AUX3,default={ CONF_NAME: "Aux3 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_AUX3): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_POOL_ON,default={ CONF_NAME: "Pool Switch" }): switch.switch_schema(
+            cv.Optional(CONF_POOL_ON): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE1,default={ CONF_NAME: "Feature1 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_FEATURE1): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE2,default={ CONF_NAME: "Feature2 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_FEATURE2): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE3,default={ CONF_NAME: "Feature3 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_FEATURE3): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE4,default={ CONF_NAME: "Feature4 Switch" }): switch.switch_schema(
+            cv.Optional(CONF_FEATURE4): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
             cv.Optional(CONF_BOOST): switch.switch_schema(
@@ -106,6 +107,13 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_TEMPERATURE,
             ).extend(),
             cv.Optional(CONF_SPA_TEMP,default={ CONF_NAME: "Spa Temp" }): sensor.sensor_schema(
+                unit_of_measurement=UNIT_EMPTY,
+                icon=ICON_THERMOMETER,
+                accuracy_decimals=1,
+                state_class=STATE_CLASS_MEASUREMENT,
+                device_class=DEVICE_CLASS_TEMPERATURE,
+            ).extend(),
+            cv.Optional(CONF_SOLAR_TEMP,default={ CONF_NAME: "Solar Temp" }): sensor.sensor_schema(
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
                 accuracy_decimals=1,
@@ -172,3 +180,6 @@ async def to_code(config):
     if CONF_SPA_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_SPA_TEMP])
         cg.add(var.set_spa_temp_sensor(sensor_))
+    if CONF_SOLAR_TEMP in config:
+        sensor_ = await sensor.new_sensor(config[CONF_SOLAR_TEMP])
+        cg.add(var.set_solar_temp_sensor(sensor_))

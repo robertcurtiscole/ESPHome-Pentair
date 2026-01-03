@@ -67,11 +67,11 @@ void PentairRS422::loop() {
                     if (this->aux3_switch_) {
                         this->aux3_switch_->publish_state(switch_state);
                     }
-                    switch_state = (bool) (buffer[8+2] & 0x10);
+                    switch_state = (bool) (buffer[8+2] & 0x20);     // note out of order
                     if (this->pool_on_switch_) {
                         this->pool_on_switch_->publish_state(switch_state);
                     }
-                    switch_state = (bool) (buffer[8+2] & 0x20);
+                    switch_state = (bool) (buffer[8+2] & 0x10);     // note out of order
                     if (this->feature1_switch_) {
                         this->feature1_switch_->publish_state(switch_state);
                     }

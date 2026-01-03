@@ -25,12 +25,12 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_feature3_switch(switch_::Switch *feature3_switch) { feature3_switch_ = feature3_switch; }
   void set_feature4_switch(switch_::Switch *feature4_switch) { feature4_switch_ = feature4_switch; }
   void set_boost_switch(switch_::Switch *boost_switch) { boost_switch_ = boost_switch; }
-  
+
   void set_air_temp_sensor(sensor::Sensor *air_temp_sensor) { air_temp_sensor_ = air_temp_sensor; }
   void set_water_temp_sensor(sensor::Sensor *water_temp_sensor) { water_temp_sensor_ = water_temp_sensor; }
   void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
   void set_solar_temp_sensor(sensor::Sensor *solar_temp_sensor) { solar_temp_sensor_ = solar_temp_sensor; }
-
+  
   // when a switch is changed by the user - they want to turn something on or off
   void request_circuit_change(uint32_t circuit, bool state);
 
