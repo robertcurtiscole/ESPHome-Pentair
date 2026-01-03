@@ -87,7 +87,7 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_FEATURE4,default={ CONF_NAME: "Feature4 Switch" }): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_BOOST,default={ CONF_NAME: "Boost Switch" }): switch.switch_schema(
+            cv.Optional(CONF_BOOST): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(), 
 
