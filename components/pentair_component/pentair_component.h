@@ -29,6 +29,9 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
   void set_solar_temp_sensor(sensor::Sensor *solar_temp_sensor) { solar_temp_sensor_ = solar_temp_sensor; }
 
+  // when a switch is changed by the user - they want to turn something on or off
+  void request_circuit_change(uint32_t circuit, bool state);
+
   // protected variables
  protected:
   switch_::Switch *spa_on_switch_{nullptr};
@@ -51,8 +54,12 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   boolean checksumPass(u_char *buff, int numchars);
   void addchar(char c);
   void resetBuffer();
-  void sendCircuitChange(char circuit, bool state);
-
+  void sendCircuitChange(u_char circuit, bool state);
+  // hold the single requested circuit change (ideally, this is a queue)
+  uint32_t   have_circuit_change_{0};
+  uint32_t requested_circuit_{0};
+  bool   requested_state_{false};
+  
   int   loop_count_{0};   // for testing and debug
 
   uint nchars = 0;

@@ -15,10 +15,10 @@ void PentairSwitch::write_state(bool nstate) {
   ESP_LOGI(TAG, "PentairSwitch::write_state(%s) called.", nstate ? "ON" : "OFF");
   // talk to the PentairComponent to set the switch
   if (parent_ != nullptr) {
-    // parent_->set_switch_state(this, state);
+    parent_->request_circuit_change(this->circuit_, nstate);
   }
 
- // confirm this was successful?
+  // confirm this was successful? Though we won't know until the next status update
   this->publish_state(nstate);
 }
 

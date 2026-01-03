@@ -98,8 +98,9 @@ void PentairRS422::loop() {
                     }
 
                     // debug strings
-                    sprintf(msgbuffer, "Circuits 0x%02X%02X Loops %d/%d", buffer[8+2], buffer[8+3], loop_chars, loop_nochars);
+                    //sprintf(msgbuffer, "Circuits 0x%02X%02X Loops %d/%d", buffer[8+2], buffer[8+3], loop_chars, loop_nochars);
                     //id(debug_text).publish_state(msgbuffer);
+                    ESP_LOGI(TAG, "Circuits 0x%02X%02X Loops %d/%d", buffer[8+2], buffer[8+3], loop_chars, loop_nochars);
                 }
             }
             else {
@@ -119,19 +120,25 @@ void PentairRS422::loop() {
     // if we're not in the middle of a message and we've got something to send, do it now (wait for idle comms)
     if (nchars == 0 && loop_nochars > 30) {
         // if something to send, package it up
-        /****
-        if (curSpaHeater != (bool) id(spaheater).state) {
-            // have we not-yet sent our command?
-            if (cmdSpaHeater != (bool) id(spaheater).state) {
-                // send the command
-                cmdSpaHeater = (bool) id(spaheater).state;
-                sprintf(msgbuffer, "Send Heater Cmd %s", cmdSpaHeater? "On-1`" : "Off-0");
-                //id(debug_text).publish_state(msgbuffer);
-                sendCircuitChange(0x01 ,cmdSpaHeater);
-            }
+        if (have_circuit_change_ > 0) {
+            sendCircuitChange((u_char) requested_circuit_, requested_state_);
+            have_circuit_change_--;
+            // ideally, we'd wait for an ack here before clearing the request
+            // or ideally, when we get the next status update, we'd see the change reflected and clear it then.
         }
-        ****/
     }
+}
+
+/*
+ * Queue up a single circuit change request.
+ * Send or try the request two times.
+ * If another request comes in while one is pending, replace it.
+ */
+void PentairRS422::request_circuit_change(uint32_t circuit, bool state) {
+    ESP_LOGI(TAG, "PentairRS422::request_circuit_change(%d,%s) called.", circuit, state ? "ON" : "OFF");
+    requested_circuit_ = circuit;
+    requested_state_ = state;
+    have_circuit_change_ = 2;   // try twice
 }
 
 
@@ -151,7 +158,7 @@ void PentairRS422::loop() {
 * 0x00 0xFF 0xA5 0x01   0x48 0x10   0x01  0x01 0x86        0x01 0x88 (or some checksum)
 * The message needs a prelude of some # of 0xFF before the header.  Try 8 and send bytes quickly...
 */
-void PentairRS422::sendCircuitChange(char circuit, bool state)  {
+void PentairRS422::sendCircuitChange(u_char circuit, bool state)  {
     u_char out_message[12] = { 0x00, 0xFF, 0xA5, 0x01, 0x10, 0x20, 0x86, 0x02,
                             0x00, 0x00, 0x00, 0x00};   // set these: data and checksum
     u_char prelude[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
