@@ -48,6 +48,7 @@ void PentairRS422::loop() {
                 // is this the right message?
                 // check source/destination (0x10, 0x0f) and station update command (0x02)
                 if (buffer[4] == 0x0F && buffer[5] == 0x10 && buffer[6] == 0x02) {
+                    ESP_LOGI(TAG, "Circuits 0x%02X%02X Loops %d/%d", buffer[8+2], buffer[8+3], loop_chars, loop_nochars);
 
                     // spa on?
                     switch_state = (bool) (buffer[8+2] & 0x01);
@@ -67,18 +68,22 @@ void PentairRS422::loop() {
                         this->aux3_switch_->publish_state(switch_state);
                     }
                     switch_state = (bool) (buffer[8+2] & 0x10);
+                    if (this->pool_switch_) {
+                        this->pool_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x20);
                     if (this->feature1_switch_) {
                         this->feature1_switch_->publish_state(switch_state);
                     }
-                    switch_state = (bool) (buffer[8+2] & 0x20);
+                    switch_state = (bool) (buffer[8+2] & 0x40);
                     if (this->feature2_switch_) {
                         this->feature2_switch_->publish_state(switch_state);
                     }
-                    switch_state = (bool) (buffer[8+2] & 0x40);
+                    switch_state = (bool) (buffer[8+2] & 0x80);
                     if (this->feature3_switch_) {
                         this->feature3_switch_->publish_state(switch_state);
                     }
-                    switch_state = (bool) (buffer[8+2] & 0x80);
+                    switch_state = (bool) (buffer[8+3] & 0x01);
                     if (this->feature4_switch_) {
                         this->feature4_switch_->publish_state(switch_state);
                     }

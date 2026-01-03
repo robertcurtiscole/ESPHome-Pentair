@@ -38,6 +38,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   switch_::Switch *aux1_switch_{nullptr};
   switch_::Switch *aux2_switch_{nullptr};
   switch_::Switch *aux3_switch_{nullptr};
+  switch_::Switch *pool_on_switch_{nullptr};
   switch_::Switch *feature1_switch_{nullptr};
   switch_::Switch *feature2_switch_{nullptr};
   switch_::Switch *feature3_switch_{nullptr};
