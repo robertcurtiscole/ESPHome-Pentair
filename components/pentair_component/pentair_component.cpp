@@ -164,6 +164,7 @@ void PentairRS422::sendCircuitChange(u_char circuit, bool state)  {
     u_char prelude[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
     uint16 checksum  = 0;
 
+    ESP_LOGI(TAG, "PentairRS422::sendCircuitChange(%d,%s) called.", circuit, state ? "ON" : "OFF");
 
     // set circuit and value
     out_message[8] = circuit;
