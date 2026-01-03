@@ -33,6 +33,7 @@ CONF_BOOST      = "boost"
 CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
 CONF_SPA_TEMP   = "spa_temp"
+CONF_SOLAR_TEMP = "solar_temp"
 
 # Define codes for switch commands
 # This is not byte [2] of status message! Rather, it is one of
