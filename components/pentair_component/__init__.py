@@ -34,6 +34,18 @@ CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
 CONF_SPA_TEMP   = "spa_temp"
 
+# Define bits for switch commands
+CIRCUIT_SPA_ON     = 0x01
+CIRCUIT_AUX1       = 0x02
+CIRCUIT_AUX2       = 0x04
+CIRCUIT_AUX3       = 0x08
+CIRCUIT_POOL_ON    = 0x10
+CIRCUIT_FEATURE1   = 0x20
+CIRCUIT_FEATURE2   = 0x40
+CIRCUIT_FEATURE3   = 0x80
+CIRCUIT_FEATURE4   = 0x100
+CIRCUIT_BOOST      = 0x200
+
 pentair422_ns = cg.esphome_ns.namespace("pentair_component")
 Pentair422_class = pentair422_ns.class_(
     "PentairRS422", cg.Component, uart.UARTDevice
@@ -43,9 +55,23 @@ pentair_switch_class = pentair422_ns.class_("PentairSwitch", switch.Switch, cg.C
 CONFIG_SCHEMA = (
     cv.Schema({
             cv.GenerateID(): cv.declare_id(Pentair422_class),
+
             cv.Optional(CONF_SPA_ON,default={ CONF_NAME: "Spa Switch" }): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
+            cv.Optional(CONF_AUX1,default={ CONF_NAME: "Aux1 Switch" }): switch.switch_schema(
+               pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
+            ).extend(),
+            cv.Optional(CONF_AUX2,default={ CONF_NAME: "Aux2 Switch" }): switch.switch_schema(
+               pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
+            ).extend(),
+            cv.Optional(CONF_AUX3,default={ CONF_NAME: "Aux3 Switch" }): switch.switch_schema(
+               pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
+            ).extend(),
+            cv.Optional(CONF_FEATURE1,default={ CONF_NAME: "Feature1 Switch" }): switch.switch_schema(
+               pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
+            ).extend(),
+
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
                 unit_of_measurement=UNIT_EMPTY,
                 icon=ICON_THERMOMETER,
@@ -80,7 +106,24 @@ async def to_code(config):
     if CONF_SPA_ON in config:
         switch_ = await switch.new_switch(config[CONF_SPA_ON])
         cg.add(var.set_spa_on_switch(switch_))
-        cg.add(switch_.set_parent(var))
+        cg.add(switch_.set_parent(var, CIRCUIT_SPA_ON))
+    if CONF_AUX1 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX1])
+        cg.add(var.set_aux1_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX1))
+    if CONF_AUX2 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX2])
+        cg.add(var.set_aux2_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX2))
+    if CONF_AUX3 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX3])
+        cg.add(var.set_aux3_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX3))
+    if CONF_FEATURE1 in config:
+        switch_ = await switch.new_switch(config[CONF_FEATURE1])
+        cg.add(var.set_feature1_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_FEATURE1))
+
 
     if CONF_AIR_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_AIR_TEMP])

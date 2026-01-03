@@ -54,6 +54,34 @@ void PentairRS422::loop() {
                     if (this->spa_on_switch_) {
                         this->spa_on_switch_->publish_state(switch_state);
                     }
+                    switch_state = (bool) (buffer[8+2] & 0x02);
+                    if (this->aux1_switch_) {
+                        this->aux1_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x04);
+                    if (this->aux2_switch_) {
+                        this->aux2_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x08);
+                    if (this->aux3_switch_) {
+                        this->aux3_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x10);
+                    if (this->feature1_switch_) {
+                        this->feature1_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x20);
+                    if (this->feature2_switch_) {
+                        this->feature2_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x40);
+                    if (this->feature3_switch_) {
+                        this->feature3_switch_->publish_state(switch_state);
+                    }
+                    switch_state = (bool) (buffer[8+2] & 0x80);
+                    if (this->feature4_switch_) {
+                        this->feature4_switch_->publish_state(switch_state);
+                    }
     
                     // spa and pool temperatures +14, +15
                     if (this->water_temp_sensor_) {
