@@ -68,8 +68,8 @@ void PentairRS422::loop() {
                         this->aux3_switch_->publish_state(switch_state);
                     }
                     switch_state = (bool) (buffer[8+2] & 0x10);
-                    if (this->pool_switch_) {
-                        this->pool_switch_->publish_state(switch_state);
+                    if (this->pool_on_switch_) {
+                        this->pool_on_switch_->publish_state(switch_state);
                     }
                     switch_state = (bool) (buffer[8+2] & 0x20);
                     if (this->feature1_switch_) {
@@ -128,6 +128,7 @@ void PentairRS422::loop() {
         if (have_circuit_change_ > 0) {
             sendCircuitChange((u_char) requested_circuit_, requested_state_);
             have_circuit_change_--;
+            loop_nochars = 0;   // reset idle count, so we don't send again right away.
             // ideally, we'd wait for an ack here before clearing the request
             // or ideally, when we get the next status update, we'd see the change reflected and clear it then.
         }

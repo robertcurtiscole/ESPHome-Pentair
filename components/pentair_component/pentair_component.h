@@ -19,6 +19,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_aux1_switch(switch_::Switch *aux1_switch) { aux1_switch_ = aux1_switch; }
   void set_aux2_switch(switch_::Switch *aux2_switch) { aux2_switch_ = aux2_switch; }
   void set_aux3_switch(switch_::Switch *aux3_switch) { aux3_switch_ = aux3_switch; }
+  void set_pool_on_switch(switch_::Switch *pool_on_switch) { pool_on_switch_ = pool_on_switch; }
   void set_feature1_switch(switch_::Switch *feature1_switch) { feature1_switch_ = feature1_switch; }
   void set_feature2_switch(switch_::Switch *feature2_switch) { feature2_switch_ = feature2_switch; }
   void set_feature3_switch(switch_::Switch *feature3_switch) { feature3_switch_ = feature3_switch; }
