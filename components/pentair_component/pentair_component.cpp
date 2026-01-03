@@ -101,11 +101,6 @@ void PentairRS422::loop() {
                     if (this->solar_temp_sensor_) {
                         this->solar_temp_sensor_->publish_state(1.0 * (int) buffer[8+19]);
                     }
-
-                    // debug strings
-                    //sprintf(msgbuffer, "Circuits 0x%02X%02X Loops %d/%d", buffer[8+2], buffer[8+3], loop_chars, loop_nochars);
-                    //id(debug_text).publish_state(msgbuffer);
-                    ESP_LOGI(TAG, "Circuits 0x%02X%02X Loops %d/%d", buffer[8+2], buffer[8+3], loop_chars, loop_nochars);
                 }
             }
             else {
