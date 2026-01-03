@@ -24,7 +24,8 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_feature2_switch(switch_::Switch *feature2_switch) { feature2_switch_ = feature2_switch; }
   void set_feature3_switch(switch_::Switch *feature3_switch) { feature3_switch_ = feature3_switch; }
   void set_feature4_switch(switch_::Switch *feature4_switch) { feature4_switch_ = feature4_switch; }
-
+  void set_boost_switch(switch_::Switch *boost_switch) { boost_switch_ = boost_switch; }
+  
   void set_air_temp_sensor(sensor::Sensor *air_temp_sensor) { air_temp_sensor_ = air_temp_sensor; }
   void set_water_temp_sensor(sensor::Sensor *water_temp_sensor) { water_temp_sensor_ = water_temp_sensor; }
   void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
@@ -44,6 +45,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   switch_::Switch *feature2_switch_{nullptr};
   switch_::Switch *feature3_switch_{nullptr};
   switch_::Switch *feature4_switch_{nullptr};
+  switch_::Switch *boost_switch_{nullptr};
 
   sensor::Sensor *air_temp_sensor_{nullptr};
   sensor::Sensor *water_temp_sensor_{nullptr};
