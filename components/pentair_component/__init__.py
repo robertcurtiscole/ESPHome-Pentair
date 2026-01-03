@@ -34,17 +34,21 @@ CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
 CONF_SPA_TEMP   = "spa_temp"
 
-# Define bits for switch commands
+# Define codes for switch commands
+# This is not byte [2] of status message! Rather, it is one of
+# these codes: 0x01 represents the SPA, 0x02 is AUX1, 0x03 is AUX2, 0x04 is AUX3, and 0x05 is FEATURE1, 0x06 is POOL,
+# 0x07 is FEATURE2, 0x08 is FEATURE3, 0x09 is FEATURE4, 0x85 is HEAT_BOOST.
+
 CIRCUIT_SPA_ON     = 0x01
 CIRCUIT_AUX1       = 0x02
-CIRCUIT_AUX2       = 0x04
-CIRCUIT_AUX3       = 0x08
-CIRCUIT_POOL_ON    = 0x10
-CIRCUIT_FEATURE1   = 0x20
-CIRCUIT_FEATURE2   = 0x40
-CIRCUIT_FEATURE3   = 0x80
-CIRCUIT_FEATURE4   = 0x100
-CIRCUIT_BOOST      = 0x200
+CIRCUIT_AUX2       = 0x03
+CIRCUIT_AUX3       = 0x04
+CIRCUIT_POOL_ON    = 0x05
+CIRCUIT_FEATURE1   = 0x05
+CIRCUIT_FEATURE2   = 0x07
+CIRCUIT_FEATURE3   = 0x08
+CIRCUIT_FEATURE4   = 0x09
+CIRCUIT_BOOST      = 0x85
 
 pentair422_ns = cg.esphome_ns.namespace("pentair_component")
 Pentair422_class = pentair422_ns.class_(
