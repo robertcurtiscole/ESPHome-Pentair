@@ -4,6 +4,7 @@
 #include "esphome/components/uart/uart.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/switch/switch.h"
+#include "esphome/components/binary_sensor/binary_sensor.h"
 //#include "pentair_switch.h"
 namespace esphome {
 namespace pentair_component {
@@ -32,7 +33,7 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_solar_temp_sensor(sensor::Sensor *solar_temp_sensor) { solar_temp_sensor_ = solar_temp_sensor; }
   
   void set_heater_on_binary_sensor(binary_sensor::BinarySensor *heater_on_binary_sensor) { heater_on_binary_sensor_ = heater_on_binary_sensor; }  
-  
+
   // when a switch is changed by the user - they want to turn something on or off
   void request_circuit_change(uint32_t circuit, bool state);
 
