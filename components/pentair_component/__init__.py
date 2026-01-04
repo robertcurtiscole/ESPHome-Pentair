@@ -17,7 +17,7 @@ from esphome.const import (     CONF_ID, CONF_NAME,UNIT_EMPTY, ICON_EMPTY,
                            )
 
 DEPENDENCIES = ["uart"]
-AUTO_LOAD = ['uart', 'sensor', 'switch']
+AUTO_LOAD = ['uart', 'sensor', 'switch', 'binary_sensor']
 
 # Define constants for configuration keys
 CONF_SPA_ON     = "spa_on"
