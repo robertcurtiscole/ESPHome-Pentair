@@ -25,10 +25,10 @@ CONF_AUX1       = "aux1"
 CONF_AUX2       = "aux2"
 CONF_AUX3       = "aux3"
 CONF_POOL_ON    = "pool_on"
-CONF_FEATURE1   = "feature1"
-CONF_FEATURE2   = "feature2"
-CONF_FEATURE3   = "feature3"
-CONF_FEATURE4   = "feature4"
+CONF_AUX4       = "aux4"
+CONF_AUX5       = "aux5"
+CONF_AUX6       = "aux6"
+CONF_AUX7       = "aux7"
 CONF_BOOST      = "boost"
 CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
@@ -46,10 +46,10 @@ CIRCUIT_AUX1       = 0x02
 CIRCUIT_AUX2       = 0x03
 CIRCUIT_AUX3       = 0x04
 CIRCUIT_POOL_ON    = 0x06
-CIRCUIT_FEATURE1   = 0x05
-CIRCUIT_FEATURE2   = 0x07
-CIRCUIT_FEATURE3   = 0x08
-CIRCUIT_FEATURE4   = 0x09
+CIRCUIT_AUX4       = 0x05
+CIRCUIT_AUX5       = 0x07
+CIRCUIT_AUX6       = 0x08
+CIRCUIT_AUX7       = 0x09
 CIRCUIT_BOOST      = 0x85
 
 pentair422_ns = cg.esphome_ns.namespace("pentair_component")
@@ -77,16 +77,16 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_POOL_ON): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE1): switch.switch_schema(
+            cv.Optional(CONF_AUX4): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE2): switch.switch_schema(
+            cv.Optional(CONF_AUX5): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE3): switch.switch_schema(
+            cv.Optional(CONF_AUX6): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
-            cv.Optional(CONF_FEATURE4): switch.switch_schema(
+            cv.Optional(CONF_AUX7): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
             ).extend(),
             cv.Optional(CONF_BOOST): switch.switch_schema(
@@ -151,22 +151,22 @@ async def to_code(config):
         switch_ = await switch.new_switch(config[CONF_POOL_ON])
         cg.add(var.set_pool_on_switch(switch_))
         cg.add(switch_.set_parent(var, CIRCUIT_POOL_ON))
-    if CONF_FEATURE1 in config:
-        switch_ = await switch.new_switch(config[CONF_FEATURE1])
-        cg.add(var.set_feature1_switch(switch_))
-        cg.add(switch_.set_parent(var, CIRCUIT_FEATURE1))
-    if CONF_FEATURE2 in config:
-        switch_ = await switch.new_switch(config[CONF_FEATURE2])
-        cg.add(var.set_feature2_switch(switch_))
-        cg.add(switch_.set_parent(var, CIRCUIT_FEATURE2))
-    if CONF_FEATURE3 in config:
-        switch_ = await switch.new_switch(config[CONF_FEATURE3])
-        cg.add(var.set_feature3_switch(switch_))
-        cg.add(switch_.set_parent(var, CIRCUIT_FEATURE3))
-    if CONF_FEATURE4 in config:
-        switch_ = await switch.new_switch(config[CONF_FEATURE4])
-        cg.add(var.set_feature4_switch(switch_))
-        cg.add(switch_.set_parent(var, CIRCUIT_FEATURE4))
+    if CONF_AUX4 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX4])
+        cg.add(var.set_aux4_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX4))
+    if CONF_AUX5 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX5])
+        cg.add(var.set_aux5_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX5))
+    if CONF_AUX6 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX6])
+        cg.add(var.set_aux6_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX6))
+    if CONF_AUX7 in config:
+        switch_ = await switch.new_switch(config[CONF_AUX7])
+        cg.add(var.set_aux7_switch(switch_))
+        cg.add(switch_.set_parent(var, CIRCUIT_AUX7))
     if CONF_BOOST in config:
         switch_ = await switch.new_switch(config[CONF_BOOST])
         cg.add(var.set_boost_switch(switch_))

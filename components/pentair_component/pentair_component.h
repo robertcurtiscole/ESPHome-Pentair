@@ -20,10 +20,10 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_aux2_switch(switch_::Switch *aux2_switch) { aux2_switch_ = aux2_switch; }
   void set_aux3_switch(switch_::Switch *aux3_switch) { aux3_switch_ = aux3_switch; }
   void set_pool_on_switch(switch_::Switch *pool_on_switch) { pool_on_switch_ = pool_on_switch; }
-  void set_feature1_switch(switch_::Switch *feature1_switch) { feature1_switch_ = feature1_switch; }
-  void set_feature2_switch(switch_::Switch *feature2_switch) { feature2_switch_ = feature2_switch; }
-  void set_feature3_switch(switch_::Switch *feature3_switch) { feature3_switch_ = feature3_switch; }
-  void set_feature4_switch(switch_::Switch *feature4_switch) { feature4_switch_ = feature4_switch; }
+  void set_aux4_switch(switch_::Switch *aux4_switch) { aux4_switch_ = aux4_switch; }
+  void set_aux5_switch(switch_::Switch *aux5_switch) { aux5_switch_ = aux5_switch; }
+  void set_aux6_switch(switch_::Switch *aux6_switch) { aux6_switch_ = aux6_switch; }
+  void set_aux7_switch(switch_::Switch *aux7_switch) { aux7_switch_ = aux7_switch; }
   void set_boost_switch(switch_::Switch *boost_switch) { boost_switch_ = boost_switch; }
 
   void set_air_temp_sensor(sensor::Sensor *air_temp_sensor) { air_temp_sensor_ = air_temp_sensor; }
@@ -41,10 +41,10 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   switch_::Switch *aux2_switch_{nullptr};
   switch_::Switch *aux3_switch_{nullptr};
   switch_::Switch *pool_on_switch_{nullptr};
-  switch_::Switch *feature1_switch_{nullptr};
-  switch_::Switch *feature2_switch_{nullptr};
-  switch_::Switch *feature3_switch_{nullptr};
-  switch_::Switch *feature4_switch_{nullptr};
+  switch_::Switch *aux4_switch_{nullptr};
+  switch_::Switch *aux5_switch_{nullptr};
+  switch_::Switch *aux6_switch_{nullptr};
+  switch_::Switch *aux7_switch_{nullptr};
   switch_::Switch *boost_switch_{nullptr};
 
   sensor::Sensor *air_temp_sensor_{nullptr};
