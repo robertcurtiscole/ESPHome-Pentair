@@ -88,6 +88,12 @@ void PentairRS422::loop() {
                         this->aux7_switch_->publish_state(switch_state);
                     }
     
+                    // [10] 0x0f if heater is on; 0x03 if heater is off
+                    switch_state = (buffer[8+10] == 0x0F);
+                    if (this->heater_on_binary_sensor_) {
+                        this->heater_on_binary_sensor_->publish_state(switch_state);
+                    }
+
                     // spa and pool temperatures +14, +15
                     if (this->water_temp_sensor_) {
                         this->water_temp_sensor_->publish_state(1.0 * (int) buffer[8+14]);

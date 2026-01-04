@@ -31,6 +31,8 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   void set_spa_temp_sensor(sensor::Sensor *spa_temp_sensor) { spa_temp_sensor_ = spa_temp_sensor; }
   void set_solar_temp_sensor(sensor::Sensor *solar_temp_sensor) { solar_temp_sensor_ = solar_temp_sensor; }
   
+  void set_heater_on_binary_sensor(binary_sensor::BinarySensor *heater_on_binary_sensor) { heater_on_binary_sensor_ = heater_on_binary_sensor; }  
+  
   // when a switch is changed by the user - they want to turn something on or off
   void request_circuit_change(uint32_t circuit, bool state);
 
@@ -51,6 +53,8 @@ class PentairRS422 : public uart::UARTDevice, public Component {
   sensor::Sensor *water_temp_sensor_{nullptr};
   sensor::Sensor *spa_temp_sensor_{nullptr};
   sensor::Sensor *solar_temp_sensor_{nullptr};
+
+  binary_sensor::BinarySensor *heater_on_binary_sensor_{nullptr};
 
   // private for communications
  private:

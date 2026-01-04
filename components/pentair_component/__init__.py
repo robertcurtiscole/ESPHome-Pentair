@@ -10,7 +10,7 @@
 
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import uart, sensor, switch
+from esphome.components import uart, sensor, switch, binary_sensor
 from esphome.const import (     CONF_ID, CONF_NAME,UNIT_EMPTY, ICON_EMPTY,
                            DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, UNIT_CELSIUS, ICON_THERMOMETER,
                            DEVICE_CLASS_SWITCH,
@@ -34,6 +34,8 @@ CONF_AIR_TEMP   = "air_temp"
 CONF_WATER_TEMP = "water_temp"
 CONF_SPA_TEMP   = "spa_temp"
 CONF_SOLAR_TEMP = "solar_temp"
+
+CONF_HEATER_ON  = "heater_on" 
 
 # Define codes for switch commands
 # This is not byte [2] of status message! Rather, it is one of
@@ -91,6 +93,10 @@ CONFIG_SCHEMA = (
             ).extend(),
             cv.Optional(CONF_BOOST): switch.switch_schema(
                pentair_switch_class, device_class=DEVICE_CLASS_SWITCH,
+            ).extend(),
+
+            cv.Optional(CONF_HEATER_ON): binary_sensor.binary_sensor_schema(
+               # options here?
             ).extend(), 
 
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
@@ -184,3 +190,7 @@ async def to_code(config):
     if CONF_SOLAR_TEMP in config:
         sensor_ = await sensor.new_sensor(config[CONF_SOLAR_TEMP])
         cg.add(var.set_solar_temp_sensor(sensor_))
+
+    if CONF_HEATER_ON in config:
+        binary_sensor_ = await binary_sensor.new_binary_sensor(config[CONF_HEATER_ON])
+        cg.add(var.set_heater_on_binary_sensor(binary_sensor_))
