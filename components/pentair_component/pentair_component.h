@@ -2,9 +2,9 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/uart/uart.h"
+#include "esphome/components/binary_sensor/binary_sensor.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/switch/switch.h"
-#include "esphome/components/binary_sensor/binary_sensor.h"
 //#include "pentair_switch.h"
 namespace esphome {
 namespace pentair_component {

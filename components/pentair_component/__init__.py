@@ -13,7 +13,7 @@ import esphome.config_validation as cv
 from esphome.components import uart, sensor, switch, binary_sensor
 from esphome.const import (     CONF_ID, CONF_NAME,UNIT_EMPTY, ICON_EMPTY,
                            DEVICE_CLASS_TEMPERATURE, STATE_CLASS_MEASUREMENT, UNIT_CELSIUS, ICON_THERMOMETER,
-                           DEVICE_CLASS_SWITCH,
+                           DEVICE_CLASS_SWITCH, DEVICE_CLASS_HEAT
                            )
 
 DEPENDENCIES = ["uart"]
@@ -96,7 +96,7 @@ CONFIG_SCHEMA = (
             ).extend(),
 
             cv.Optional(CONF_HEATER_ON): binary_sensor.binary_sensor_schema(
-               # options here?
+               device_class=DEVICE_CLASS_HEAT,# options here?
             ).extend(), 
 
             cv.Optional(CONF_AIR_TEMP,default={ CONF_NAME: "Air Temp" }): sensor.sensor_schema(
