@@ -1,7 +1,25 @@
-# example configuration:
+# Pentair RS422 communications and control
+
+## Connecting an ESP32 to a Pentair 422 line
+The ESP32 needs to provide Rx/Tx with 3.3v and ground
+In a nearby image:
+- Rx     = red
+- tx     = orange
+- Gnd    = grey
+- 3.3v   = purple
+
+`Those four lines go to an rs485 to TTL converter`
+The output/input since 422 is bi directional is the A+ (yellow) and B- (green) wires.
+Those can go directly to the Pentair box where any remote displays are also wired.
+In the nearby image, I show another RS485 unit which I used to tap into the line with a scope - even when the ESP32 was powered down.
+
+## YAML file for your ESP32
+ example configuration:
 
 external_components:
- # use github code
+ use github code for an external component
+ ```yaml
+ # external compoent
  - source:
      type: git
      url: https://github.com/robertcurtiscole/ESPHome-Pentair
@@ -55,3 +73,4 @@ uart:
   tx_pin: D0
   rx_pin: D1
   baud_rate: 9600
+```
