@@ -4,9 +4,13 @@
 The ESP32 needs to provide Rx/Tx with 3.3v and ground
 In a nearby image:
 - Rx     = red
-- tx     = orange
+- tx     = yellow
 - Gnd    = grey
 - 3.3v   = purple
+
+![ESP32 Photo](./ImageESP32Pentair.jpg)
+
+![RS485 Photo](./ImageRS485.jpg)
 
 `Those four lines go to an rs485 to TTL converter`
 The output/input since 422 is bi directional is the A+ (yellow) and B- (green) wires.
